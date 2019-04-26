@@ -3,6 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const TransferWebpackPlugin = require('transfer-webpack-plugin');
 
 module.exports = {
   entry: './src/app.jsx',
@@ -56,6 +57,9 @@ module.exports = {
       filename: '[name].css',
       chunkFilename:'[id].css'
     }),
+    new TransferWebpackPlugin([
+      { from: path.join(__dirname, './src/images'),to: path.join(__dirname, "dist/images")}
+    ]),
     new OpenBrowserPlugin({
       url: 'http://127.0.0.1:3000/index.html'
     })
