@@ -7,4 +7,12 @@ import { treeData, config } from "./data/feakData";
 function nodeClick (data) {
   console.log(data)
 }
-reactDOM.render(<Tree config={ config } treeData={ treeData } nodeClick={(data) => nodeClick(data)} />, document.getElementById('react-tree'))
+function selectChange(data) {
+  console.log(data)
+}
+reactDOM.render(
+    <Tree
+      config={ config }
+      treeData={ treeData }
+      selectChange={(data) => selectChange(data)}
+      nodeClick={(data) => nodeClick(data)} />, document.getElementById('react-tree'))

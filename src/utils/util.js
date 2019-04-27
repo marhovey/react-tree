@@ -1,5 +1,5 @@
 export default class Stack {
-  contructor() {
+  constructor() {
     this.top = 0; // 栈的长度
     this.items = []
   }
