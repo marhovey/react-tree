@@ -3,7 +3,8 @@ export const config = {
     parentId: 'pid',
     id: 'id',
     value: 'value',
-    label: 'label'
+    label: 'label',
+    checkBox: true
 }
 
 export const treeData = [

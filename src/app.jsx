@@ -4,4 +4,7 @@ import './app.less';
 import Tree from './components/Tree.jsx';
 import { treeData, config } from "./data/feakData";
 
-reactDOM.render(<Tree config={ config } treeData={ treeData } />, document.getElementById('react-tree'))
+function nodeClick (data) {
+  console.log(data)
+}
+reactDOM.render(<Tree config={ config } treeData={ treeData } nodeClick={(data) => nodeClick(data)} />, document.getElementById('react-tree'))

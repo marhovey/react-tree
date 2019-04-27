@@ -82,7 +82,7 @@ class Tree extends Component {
     let data = this.state.treeData
   }
 
-  clickNode (e, data) {
+  openNode (e, data) {
     if (e.stopPropagation) {
       e.stopPropagation();
     } else {
@@ -92,23 +92,48 @@ class Tree extends Component {
     this.forceUpdate()
   }
 
+  selectNode (e, data) {
+    if (e.stopPropagation) {
+      e.stopPropagation();
+    } else {
+      window.event.cancelBubble = true;
+    }
+    this.setState({
+      selectVal: data[this.state.value]
+    }, () => {
+      if (this.props.nodeClick) {
+        this.props.nodeClick(data[this.state.value])
+      }
+    })
+  }
+
+  selectCheckBox (e, data) {
+    if (e.stopPropagation) {
+      e.stopPropagation();
+    } else {
+      window.event.cancelBubble = true;
+    }
+  }
+
   renderTreeParent() {
+    let data = this.state.treeData
     return (
-      <div className={`parentNode childNode ${this.state.treeData.open?'open':'close'}`}>
+      <div className={`parentNode childNode ${data.open?'open':'close'} ${data.children && data.children.length?'':'noChildren'}`}>
+        <span onClick={(e) => this.openNode(e, data)} className="openNode"></span>
         {
           this.state.checkBox?
-            <div className="checkBox"></div>:
+            <div className="checkBox" onClick={(e) => this.selectCheckBox(e, data)}></div>:
             <div className="fileBox">
               <img src="./images/file-icon.png" alt=""/>
             </div>
         }
-        <div className="nodeName" onClick={(e) => this.clickNode(e, this.state.treeData)}>
-          {this.state.treeData[this.state.label]}
+        <div className={`nodeName ${this.state.selectVal === data[this.state.value]?'active':''}`} onClick={(e) => this.selectNode(e, data)}>
+          {data[this.state.label]}
         </div>
         {
           this.state.treeData.children ?
             <div className="childList">
-              {this.renderTreeNode(this.state.treeData)}
+              {this.renderTreeNode(data)}
             </div> : null
         }
       </div>
@@ -118,16 +143,19 @@ class Tree extends Component {
   renderTreeNode(data) {
     return data.children.map((val, ind) => {
       return (
-        <div key={ind} className={`childNode ${val.open?'open':'close'} ${ind === data.children.length - 1?'lastNode':''}`}>
-          <span></span>
+        <div key={ind} className={`childNode ${val.open?'open':'close'} ${val.children && val.children.length?'':'noChildren'}`}>
+          <span onClick={(e) => this.openNode(e, val)} className="openNode"></span>
           {
             this.state.checkBox?
-              <div className="checkBox"></div>:
+              <div className="checkBox" onClick={(e) => this.selectCheckBox(e, val)}></div>:
               <div className="fileBox">
                 <img src="./images/file-icon.png" alt=""/>
               </div>
           }
-          <div className="nodeName" onClick={(e) => this.clickNode(e, val)}>
+          {ind === data.children.length - 1?
+              <span className="lastNode"></span>:null
+          }
+          <div className={`nodeName ${this.state.selectVal === val[this.state.value]?'active':''}`} onClick={(e) => this.selectNode(e, val)}>
             {val[this.state.label]}
           </div>
           {
