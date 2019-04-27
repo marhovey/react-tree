@@ -4,7 +4,7 @@ export const config = {
     id: 'id',
     value: 'value',
     label: 'label',
-    checkBox: true
+    checkBox: true 
 }
 
 export const treeData = [
