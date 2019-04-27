@@ -85,6 +85,19 @@ class Tree extends Component {
 
   factoryTreeData() {
     let data = this.state.treeData
+    let stack = new Stack();
+    let obj = {};
+    stack.push(data);
+    while (stack.top) {
+      let node = stack.pop();
+      for (let i in node.children) {
+        stack.push(node.children[i])
+      }
+      obj[node[this.state.id]] = node
+    }
+    this.setState({
+      treeObj: obj
+    })
   }
 
   openNode (e, data) {
