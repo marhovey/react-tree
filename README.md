@@ -15,5 +15,7 @@ Parameter description：
     children: 'children', // type为tree时，必填子元素集合的key
     checkBox: false // 是否需要checkbox
  }
+ treeData // type为array时, treeData应该为array; type为tree时，treeData应该为object
  selectChange // 当checkBox为true时有效，返回选中的节点的value
  nodeClick // 点击元素时，返回点击的元素
+
