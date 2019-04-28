@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
 
 module.exports = {
@@ -11,10 +10,11 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
+  mode: 'production',
   module: {
     rules: [
       {
-        test: /\.jsx$/,
+        test: /\.(jsx|js)$/,
         exclude: /(node_modules)/,
         use: 'babel-loader'
       },
@@ -44,8 +44,8 @@ module.exports = {
         ]
       },
       {
-        test: /.(png|gif|jpg|jpeg|svg)/,
-        use: 'url-loader?limit=4096'
+        test: /\.(png|gif|jpg|jpeg|svg)/,
+        use: 'url-loader?limit=4096&name=images/[name].[ext]'
       }
     ]
   },
@@ -54,14 +54,13 @@ module.exports = {
       template: './src/index.html'
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename:'[id].css'
-    }),
-    new TransferWebpackPlugin([
-      { from: path.join(__dirname, './src/images'),to: path.join(__dirname, "dist/images")}
-    ]),
-    new OpenBrowserPlugin({
-      url: 'http://127.0.0.1:3000/index.html'
+      filename: 'bundle.css'
     })
-  ]
+    // new TransferWebpackPlugin([
+    //   { from: path.join(__dirname, './src/images'),to: path.join(__dirname, "dist/images")}
+    // ])
+  ],
+  resolve: {
+    extensions: ['.js', '.jsx']
+  }
 }
