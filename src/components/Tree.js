@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './Tree.less';
+import './tree.css';
 import Stack from '../utils/util';
 
 class Tree extends Component {

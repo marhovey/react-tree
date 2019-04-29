@@ -1,12 +1,13 @@
 {
-  "name": "react-tree",
-  "version": "1.0.0",
+  "name": "react-tree-component-select",
+  "version": "1.0.2",
   "description": "A Tree Component For React",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --config webpack.dev.conf.js",
-    "build": "webpack --config webpack.conf.js"
+    "build": "webpack --config webpack.conf.js",
+    "publish": "lessc src/components/Tree.less src/components/tree.css && babel src --out-dir lib --copy-files"
   },
   "repository": {
     "type": "git",
